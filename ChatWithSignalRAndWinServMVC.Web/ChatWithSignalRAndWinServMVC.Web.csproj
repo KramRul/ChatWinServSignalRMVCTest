@@ -205,7 +205,9 @@
     <Compile Include="Common\ViewModels\AccountViews\LoginAccountView.cs" />
     <Compile Include="Common\ViewModels\AccountViews\RegisterAccountResponseView.cs" />
     <Compile Include="Common\ViewModels\AccountViews\RegisterAccountView.cs" />
+    <Compile Include="Common\ViewModels\GenericResponseView.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataAccess\ChatDBContext.cs" />
     <Compile Include="DataAccess\Entities\BaseEntity.cs" />
