@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using ChatWithSignalRAndWinServMVC.Web.Common.Helpers;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 
@@ -19,6 +20,9 @@ namespace ChatWithSignalRAndWinServMVC.Web
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            var container = UnityDependencyResolver.RegisterTypes();
+            config.DependencyResolver = new UnityDependencyResolver(container);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
