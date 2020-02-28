@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1022
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsServiceTest", "WindowsServiceTest\WindowsServiceTest.csproj", "{2720E6C3-9C36-493E-8CB0-16599C1ED5CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatWithSignalRAndWinServMVC.Web", "ChatWithSignalRAndWinServMVC.Web\ChatWithSignalRAndWinServMVC.Web.csproj", "{EDB434BF-01D8-4532-9A1C-A53C4160709A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2720E6C3-9C36-493E-8CB0-16599C1ED5CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2720E6C3-9C36-493E-8CB0-16599C1ED5CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2720E6C3-9C36-493E-8CB0-16599C1ED5CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2720E6C3-9C36-493E-8CB0-16599C1ED5CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDB434BF-01D8-4532-9A1C-A53C4160709A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDB434BF-01D8-4532-9A1C-A53C4160709A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDB434BF-01D8-4532-9A1C-A53C4160709A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDB434BF-01D8-4532-9A1C-A53C4160709A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B4CCEB17-B148-4321-B058-C76A98A7E2F8}
+	EndGlobalSection
+EndGlobal
