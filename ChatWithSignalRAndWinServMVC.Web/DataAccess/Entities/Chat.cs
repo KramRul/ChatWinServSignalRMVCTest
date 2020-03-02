@@ -8,6 +8,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.DataAccess.Entities
 {
     public class Chat : BaseEntity
     {
+        public string UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Dispatcher;
 using ChatWithSignalRAndWinServMVC.Web.Common.Helpers;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
@@ -18,12 +19,14 @@ namespace ChatWithSignalRAndWinServMVC.Web
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
+            // Use camel case for JSON data.
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            var container = UnityDependencyResolver.RegisterTypes();
-            config.DependencyResolver = new UnityDependencyResolver(container);
-
+            //var container = UnityDependencyResolver.RegisterTypes();
+            //config.DependencyResolver = new UnityDependencyResolver(container);
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

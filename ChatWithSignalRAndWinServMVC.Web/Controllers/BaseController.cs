@@ -1,4 +1,5 @@
 ﻿using ChatWithSignalRAndWinServMVC.Web.Common.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,11 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Mvc;
 
 namespace ChatWithSignalRAndWinServMVC.Web.Controllers
 {
-    public class BaseController : ApiController
+    public class BaseController : Controller
     {
         protected string UserName
         {
@@ -20,19 +22,12 @@ namespace ChatWithSignalRAndWinServMVC.Web.Controllers
             }
         }
 
-        public async Task<IHttpActionResult> Execute<T>(Func<Task<T>> func)
+        protected string UserId
         {
-            var response = new GenericResponseView<T>();
-            var result = await func();
-            response.Model = result;
-            return Ok(response.Model);
-        }
-
-        protected async Task<IHttpActionResult> Execute(Func<Task> func)
-        {
-            var response = new GenericResponseView<string>();
-            await func();
-            return Ok(response);
+            get
+            {
+                return User.Identity.GetUserId();
+            }
         }
     }
 }

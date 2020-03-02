@@ -1,8 +1,11 @@
 ﻿using ChatWithSignalRAndWinServMVC.Web.BusinessLogic.Services;
 using ChatWithSignalRAndWinServMVC.Web.BusinessLogic.Services.Interfaces;
+using ChatWithSignalRAndWinServMVC.Web.DataAccess;
 using ChatWithSignalRAndWinServMVC.Web.DataAccess.UnitOfWork;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Http.Dependencies;
@@ -30,7 +33,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.Common.Helpers
             {
                 return container.Resolve(serviceType);
             }
-            catch (ResolutionFailedException)
+            catch (ResolutionFailedException ex)
             {
                 return null;
             }
@@ -62,7 +65,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.Common.Helpers
         public static UnityContainer RegisterTypes()
         {
             UnityContainer container = new UnityContainer();
-
+            container.RegisterInstance<ChatDBContext>(new ChatDBContext());
             container.RegisterType<IBaseUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager());
             container.RegisterType<IAccountService, AccountService>(new HierarchicalLifetimeManager());
             container.RegisterType<IChatService, ChatService>(new HierarchicalLifetimeManager());

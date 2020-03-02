@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using ChatWithSignalRAndWinServMVC.Web.Common.DTOs;
 using ChatWithSignalRAndWinServMVC.Web.Models;
 using Microsoft.AspNet.SignalR;
 
@@ -10,7 +11,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.Hubs
 {
     public class ChatHub : Hub
     {
-        static List<User> Users = new List<User>();
+        static List<UserDto> Users = new List<UserDto>();
         
         public void Send(string name, string message)
         {
@@ -23,7 +24,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.Hubs
 
             if (!Users.Any(x => x.ConnectionId == id))
             {
-                Users.Add(new User { ConnectionId = id, Name = userName });
+                Users.Add(new UserDto { ConnectionId = id, UserName = userName });
                 Clients.Caller.onConnected(id, userName, Users);
                 Clients.AllExcept(id).onNewUserConnected(id, userName);
             }
@@ -36,7 +37,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.Hubs
             {
                 Users.Remove(item);
                 var id = Context.ConnectionId;
-                Clients.All.onUserDisconnected(id, item.Name);
+                Clients.All.onUserDisconnected(id, item.UserName);
             }
 
             return base.OnDisconnected(stopCalled);

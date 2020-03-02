@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using ChatWithSignalRAndWinServMVC.Web.Models;
+using ChatWithSignalRAndWinServMVC.Web.DataAccess.Entities;
 
 namespace ChatWithSignalRAndWinServMVC.Web.Providers
 {
@@ -31,7 +32,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+            User user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
@@ -80,6 +81,11 @@ namespace ChatWithSignalRAndWinServMVC.Web.Providers
                 if (expectedRootUri.AbsoluteUri == context.RedirectUri)
                 {
                     context.Validated();
+                }
+                else if (context.ClientId == "web")
+                {
+                    var expectedUri = new Uri(context.Request.Uri, "/");
+                    context.Validated(expectedUri.AbsoluteUri);
                 }
             }
 

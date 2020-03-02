@@ -1,53 +1,151 @@
-﻿using System;
+﻿using ChatWithSignalRAndWinServMVC.Web.BusinessLogic.Services.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Web;
-using System.Web.Http;
-using System.Web.Http.ModelBinding;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+using System.Web.Mvc;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using ChatWithSignalRAndWinServMVC.Web.Common.ViewModels.AccountViews;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
-using ChatWithSignalRAndWinServMVC.Web.Models;
-using ChatWithSignalRAndWinServMVC.Web.Providers;
-using ChatWithSignalRAndWinServMVC.Web.Results;
 
 namespace ChatWithSignalRAndWinServMVC.Web.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseController
     {
-        public AccountController()
+        private readonly IAccountService _accountService;
+
+        public AccountController(IAccountService accountService)
         {
+            _accountService = accountService;
         }
 
-        // GET api/Account/UserInfo
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("UserInfo")]
-        public UserInfoViewModel GetUserInfo()
+        [HttpGet]
+        public ActionResult Authorize()
         {
-
+            return _accountService.Authorize(User);
         }
 
-        // POST api/Account/Logout
-        [Route("Logout")]
-        public IHttpActionResult Logout()
-        {
-
-        }
-
-        // POST api/Account/Register
+        [HttpGet]
         [AllowAnonymous]
-        [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        public ActionResult Login(string returnUrl)
         {
-
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
         }
+        
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginAccountView model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await _accountService.Login(model);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
+        }
+        
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(RegisterAccountView model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _accountService.Register(model);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Logout()
+        {
+            _accountService.Logout();
+            return RedirectToAction("Index", "Home");
+        }
+
+        #region Helpers
+        // Used for XSRF protection when adding external logins
+        private const string XsrfKey = "XsrfId";
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        internal class ChallengeResult : HttpUnauthorizedResult
+        {
+            public ChallengeResult(string provider, string redirectUri)
+                : this(provider, redirectUri, null)
+            {
+            }
+
+            public ChallengeResult(string provider, string redirectUri, string userId)
+            {
+                LoginProvider = provider;
+                RedirectUri = redirectUri;
+                UserId = userId;
+            }
+
+            public string LoginProvider { get; set; }
+            public string RedirectUri { get; set; }
+            public string UserId { get; set; }
+
+            public override void ExecuteResult(ControllerContext context)
+            {
+                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
+                if (UserId != null)
+                {
+                    properties.Dictionary[XsrfKey] = UserId;
+                }
+                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
+            }
+        }
+        #endregion
     }
 }

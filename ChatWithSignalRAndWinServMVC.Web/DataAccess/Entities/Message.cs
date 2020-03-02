@@ -13,6 +13,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.DataAccess.Entities
         [ForeignKey("SenderId")]
         public User Sender { get; set; }
         public DateTimeOffset SendDate { get; set; }
+        public Guid ChatId { get; set; }
         [ForeignKey("ChatId")]
         public Chat Chat { get; set; }
     }
