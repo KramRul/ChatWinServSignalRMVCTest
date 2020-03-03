@@ -1,7 +1,9 @@
 ﻿using ChatWithSignalRAndWinServMVC.Web.BusinessLogic.Services.Interfaces;
+using ChatWithSignalRAndWinServMVC.Web.Common.ViewModels.ChatViews.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,9 +19,25 @@ namespace ChatWithSignalRAndWinServMVC.Web.Controllers
             _chatService = chatService;
         }
 
-        public ActionResult Index()
+        [HttpGet]
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var chats = await _chatService.GetAvailableChats(UserId);
+            return View(new ChatIndexPageView()
+            {
+                Chats = chats
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddChat(ChatIndexPageView model)
+        {
+            var chats = await _chatService.AddChat(UserId, model.ChatName);
+            return View("Index", new ChatIndexPageView()
+            {
+                Chats = chats
+            });
         }
     }
 }

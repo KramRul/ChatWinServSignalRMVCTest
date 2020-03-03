@@ -1,4 +1,5 @@
 ﻿using ChatWithSignalRAndWinServMVC.Web.BusinessLogic.Services.Interfaces;
+using ChatWithSignalRAndWinServMVC.Web.Common.ViewModels.ChatViews;
 using ChatWithSignalRAndWinServMVC.Web.DataAccess.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,18 @@ namespace ChatWithSignalRAndWinServMVC.Web.BusinessLogic.Services
         public ChatService(IBaseUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
+        }
+
+        public async Task<IEnumerable<ChatItemView>> AddChat(string userId, string chatName)
+        {
+            var result = await _database.Chats.AddChat(userId, chatName);
+            return result;
+        }
+
+        public async Task<IEnumerable<ChatItemView>> GetAvailableChats(string userId)
+        {
+            var result = await _database.Chats.GetAvailableChats(userId);
+            return result;
         }
     }
 }

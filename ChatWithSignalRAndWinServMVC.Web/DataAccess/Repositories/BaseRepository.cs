@@ -10,10 +10,10 @@ namespace ChatWithSignalRAndWinServMVC.Web.DataAccess.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        protected DbContext dataBase;
+        protected ChatDBContext dataBase;
         private DbSet<T> _dbSet;
 
-        public BaseRepository(DbContext context)
+        public BaseRepository(ChatDBContext context)
         {
             dataBase = context;
             _dbSet = context.Set<T>();

@@ -80,7 +80,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.Controllers
                 var result = await _accountService.Register(model);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Chat");
                 }
                 AddErrors(result);
             }
@@ -94,7 +94,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.Controllers
         public ActionResult Logout()
         {
             _accountService.Logout();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Chat");
         }
 
         #region Helpers
@@ -115,7 +115,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Chat");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

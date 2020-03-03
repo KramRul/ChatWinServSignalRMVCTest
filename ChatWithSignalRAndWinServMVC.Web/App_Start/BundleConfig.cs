@@ -22,7 +22,9 @@ namespace ChatWithSignalRAndWinServMVC.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
-
+            bundles.Add(new StyleBundle("~/bundles/jqueryval").Include(
+                      "~/Scripts/jquery.validate.js"));
+            
             bundles.Add(new ScriptBundle("~/bundles/jquerysignalr").Include(
                       "~/Scripts/jquery.signalR-{version}.js"));
 
