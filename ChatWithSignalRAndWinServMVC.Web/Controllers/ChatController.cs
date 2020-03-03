@@ -1,4 +1,5 @@
 ﻿using ChatWithSignalRAndWinServMVC.Web.BusinessLogic.Services.Interfaces;
+using ChatWithSignalRAndWinServMVC.Web.Common.ViewModels.ChatViews;
 using ChatWithSignalRAndWinServMVC.Web.Common.ViewModels.ChatViews.Pages;
 using System;
 using System.Collections.Generic;

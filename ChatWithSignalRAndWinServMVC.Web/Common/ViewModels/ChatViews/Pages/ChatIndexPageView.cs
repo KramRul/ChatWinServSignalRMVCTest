@@ -13,6 +13,8 @@ namespace ChatWithSignalRAndWinServMVC.Web.Common.ViewModels.ChatViews.Pages
         [Display(Name = "Chat name")]
         public string ChatName { get; set; }
 
+        public ChatItemView CurrentChat { get; set; }
+
         public IEnumerable<ChatItemView> Chats { get; set; }
 
         public ChatIndexPageView()
