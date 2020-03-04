@@ -40,5 +40,16 @@ namespace ChatWithSignalRAndWinServMVC.Web.Controllers
                 Chats = chats
             });
         }
+
+        [HttpGet]
+        public async Task<ActionResult> ChatMessages(string chatId)
+        {
+            var chats = await _chatService.GetAvailableChats(UserId);
+            return View(new ChatIndexPageView()
+            {
+                Chats = chats,
+                CurrentChat = chats.Where(chat => chat.Id == Guid.Parse(chatId)).FirstOrDefault()
+            });
+        }
     }
 }

@@ -2,7 +2,7 @@
     $('#chatBody').hide();
     $('#loginBlock').show();
     
-    var chat = $.connection.chatHub;
+    window.chat = $.connection.chatHub;
     chat.client.addMessage = function (name, message) {
         $('#chatroom').append('<p><b>' + htmlEncode(name)
             + '</b>: ' + htmlEncode(message) + '</p>');
@@ -30,19 +30,10 @@
     };
     
     $.connection.hub.start().done(function () {
+        console.log("connection started!");
         $('#sendmessage').click(function () {
             chat.server.send($('#username').val(), $('#message').val());
             $('#message').val('');
-        });
-        
-        $("#btnLogin").click(function () {
-            var name = $("#txtUserName").val();
-            if (name.length > 0) {
-                chat.server.connect(name);
-            }
-            else {
-                alert("Введите имя");
-            }
         });
     });
 });

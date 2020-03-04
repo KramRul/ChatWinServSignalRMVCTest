@@ -27,6 +27,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.DataAccess.Repositories
             });
             return await dataBase.Chats.Where(chat => chat.UserId == userId).Select(chat => new ChatItemView()
             {
+                Id = chat.Id,
                 ChatName = chat.Name,
                 FirstMessage = chat.Messages.Select(message => new MessageItemView()
                 {
@@ -61,6 +62,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.DataAccess.Repositories
         {
             var result = await dataBase.Chats.Where(chat => chat.UserId == userId).Select(chat => new ChatItemView()
             {
+                Id = chat.Id,
                 ChatName = chat.Name,
                 FirstMessage = chat.Messages.Select(message => new MessageItemView()
                 {

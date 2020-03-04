@@ -2,57 +2,8 @@
 @model ChatIndexPageView
 <div class="row">
     <div class="col-md-4">
-        @using (Html.BeginForm("AddChat", "Chat", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.LabelFor(m => m.ChatName, new { @class = "control-label" })
-            <div class="input-group">
-                @Html.TextBoxFor(m => m.ChatName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.ChatName, "", new { @class = "text-danger" })
-                <div class="input-group-append">
-                    <input type="submit" class="btn btn-outline-secondary" id="button-chatname" value="Add chat" />
-                </div>
-            </div>
-        }
-        <h3>Available chats</h3>
-        <div class="list-group">
-            @if (Model != null)
-            {
-                foreach (var chat in Model.Chats)
-                {
-                    <button type="button" class="list-group-item list-group-item-action">
-                        @chat.ChatName
-                        @if (chat.FirstMessage != null)
-                        {
-                            <p class="list-group-item">@chat.FirstMessage.Text</p>
-                            <p class="list-group-item">@chat.FirstMessage.Sender.UserName @chat.FirstMessage.SendDate.ToString()</p>
-                        }
-                    </button>
-                }
-            }
-        </div>
-        <div class="main">
-            <div id="loginBlock">
-                Enter login:<br />
-                <input id="txtUserName" type="text" />
-                <input id="btnLogin" type="button" value="Войти" />
-            </div>
-            <div id="chatBody">
-                <div id="header"></div>
-                <div id="inputForm">
-                    <input type="text" id="message" />
-                    <input type="button" id="sendmessage" value="Send" />
-                </div>
-                <div id="chatroom"></div>
-
-                <div id="chatusers">
-                    <p><b>All users</b></p>
-                </div>
-            </div>
-            <input id="hdId" type="hidden" />
-            <input id="username" type="hidden" />
-        </div>
+        @Html.Partial("_CreateChat", Model)
+        @Html.Partial("_AvailableChats", Model.Chats)
     </div>
 </div>
 @section Scripts {

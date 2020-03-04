@@ -1,0 +1,56 @@
+﻿@model ChatWithSignalRAndWinServMVC.Web.Common.ViewModels.ChatViews.Pages.ChatIndexPageView
+
+@{
+    ViewBag.Title = "ChatMessages";
+}
+<div class="row">
+    <div class="col-md-4">
+        @Html.Partial("_CreateChat", Model)
+        @Html.Partial("_AvailableChats", Model.Chats)
+        <div class="main">
+            <div id="chatBody">
+                <div id="header"></div>
+                <div id="inputForm">
+                    <input type="text" id="message" />
+                    <input type="button" id="sendmessage" value="Send" />
+                </div>
+                <div id="chatroom"></div>
+
+                <div id="chatusers">
+                    <p><b>All users</b></p>
+                </div>
+            </div>
+            <input id="hdId" type="hidden" />
+            <input id="username" type="hidden" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3>Chat Messages</h3>
+        @if (Model.CurrentChat != null)
+        {
+            foreach (var message in Model.CurrentChat.Messages)
+            {
+                <p>
+                    <b>@message.Sender.UserName</b>: @message.SendDate.ToString()
+                </p>
+                <p>
+                    @message.Text
+                </p>
+            }
+        }
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        setTimeout(() => {
+            console.log('ssefsf')
+            var name = $("#txtUserName").val();
+            if (name.length > 0) {
+                window.chat.server.connect(name);
+            }
+            else {
+                alert("Empty user name");
+            }
+        }, 1000)
+    });
+</script>
