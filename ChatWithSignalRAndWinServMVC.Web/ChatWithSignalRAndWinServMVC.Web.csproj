@@ -221,6 +221,8 @@
     <Compile Include="Common\ViewModels\ChatViews\ChatItemView.cs" />
     <Compile Include="Common\ViewModels\ChatViews\MessageItemView.cs" />
     <Compile Include="Common\ViewModels\ChatViews\Pages\ChatIndexPageView.cs" />
+    <Compile Include="Common\ViewModels\ChatViews\Pages\ChatMessagesPageView.cs" />
+    <Compile Include="Common\ViewModels\ChatViews\Pages\CreateChatPartialPageView.cs" />
     <Compile Include="Common\ViewModels\ChatViews\UserItemView.cs" />
     <Compile Include="Common\ViewModels\GenericResponseView.cs" />
     <Compile Include="Controllers\AccountController.cs" />

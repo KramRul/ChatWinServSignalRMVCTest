@@ -1,4 +1,4 @@
-﻿@model ChatWithSignalRAndWinServMVC.Web.Common.ViewModels.ChatViews.Pages.ChatIndexPageView
+﻿@model ChatWithSignalRAndWinServMVC.Web.Common.ViewModels.ChatViews.Pages.CreateChatPartialPageView
 @using (Html.BeginForm("AddChat", "Chat", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -6,9 +6,9 @@
     @Html.LabelFor(m => m.ChatName, new { @class = "control-label" })
     <div class="input-group">
         @Html.TextBoxFor(m => m.ChatName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.ChatName, "", new { @class = "text-danger" })
         <div class="input-group-append">
             <input type="submit" class="btn btn-outline-secondary" id="button-chatname" value="Add chat" />
         </div>
     </div>
+    @Html.ValidationMessageFor(m => m.ChatName, "", new { @class = "text-danger" })
 }

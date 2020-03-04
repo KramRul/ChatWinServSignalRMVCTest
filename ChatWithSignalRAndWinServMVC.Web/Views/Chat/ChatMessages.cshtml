@@ -1,49 +1,58 @@
-﻿@model ChatWithSignalRAndWinServMVC.Web.Common.ViewModels.ChatViews.Pages.ChatIndexPageView
-
+﻿@using ChatWithSignalRAndWinServMVC.Web.Common.ViewModels.ChatViews.Pages
+@model ChatWithSignalRAndWinServMVC.Web.Common.ViewModels.ChatViews.Pages.ChatMessagesPageView
 @{
     ViewBag.Title = "ChatMessages";
 }
 <div class="row">
     <div class="col-md-4">
-        @Html.Partial("_CreateChat", Model)
+        @Html.Partial("_CreateChat", new CreateChatPartialPageView())
         @Html.Partial("_AvailableChats", Model.Chats)
-        <div class="main">
-            <div id="chatBody">
-                <div id="header"></div>
-                <div id="inputForm">
-                    <input type="text" id="message" />
-                    <input type="button" id="sendmessage" value="Send" />
-                </div>
-                <div id="chatroom"></div>
-
-                <div id="chatusers">
-                    <p><b>All users</b></p>
-                </div>
-            </div>
-            <input id="hdId" type="hidden" />
-            <input id="username" type="hidden" />
-        </div>
     </div>
     <div class="col-md-4">
-        <h3>Chat Messages</h3>
-        @if (Model.CurrentChat != null)
-        {
-            foreach (var message in Model.CurrentChat.Messages)
+        <div>
+            <h3>Chat Messages</h3>
+            @if (Model.CurrentChat != null)
             {
-                <p>
-                    <b>@message.Sender.UserName</b>: @message.SendDate.ToString()
-                </p>
-                <p>
-                    @message.Text
-                </p>
+                <p>@Model.CurrentChat.ChatName</p>
+                <div class="messages-block" id="chatroom">
+                    @foreach (var message in Model.CurrentChat.Messages)
+                    {
+                        <p>
+                            <b>@message.Sender.UserName</b>: @message.SendDate.ToString()
+                        </p>
+                        <p>
+                            @message.Text
+                        </p>
+                    }
+                </div>
             }
-        }
+            <div class="main">
+                <div id="chatBody">
+                    @using (Html.BeginForm("AddMessage", "Chat", new { CurrentChatId = Model.CurrentChat.Id }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.NewMessage, new { @class = "form-control" })
+                            <div class="input-group-append">
+                                <input type="submit" value="Send" class="btn btn-outline-secondary" id="button-sendmessage" />
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.NewMessage, "", new { @class = "text-danger" })
+                    }
+                    <div id="chatusers">
+                        <p><b>All users</b></p>
+                    </div>
+                </div>
+                <input id="hdId" type="hidden" />
+                <input id="username" type="hidden" />
+            </div>
+        </div>
     </div>
 </div>
 <script>
     $(document).ready(function () {
         setTimeout(() => {
-            console.log('ssefsf')
             var name = $("#txtUserName").val();
             if (name.length > 0) {
                 window.chat.server.connect(name);

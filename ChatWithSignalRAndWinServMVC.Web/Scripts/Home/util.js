@@ -1,6 +1,5 @@
 ﻿$(function () {
     $('#chatBody').hide();
-    $('#loginBlock').show();
     
     window.chat = $.connection.chatHub;
     chat.client.addMessage = function (name, message) {
@@ -9,15 +8,12 @@
     };
 
     chat.client.onConnected = function (id, userName, allUsers) {
-        $('#loginBlock').hide();
         $('#chatBody').show();
-
         $('#hdId').val(id);
         $('#username').val(userName);
-        $('#header').html('<h3>Welcome, ' + userName + '</h3>');
 
         for (i = 0; i < allUsers.length; i++) {
-            AddUser(allUsers[i].ConnectionId, allUsers[i].Name);
+            AddUser(allUsers[i].ConnectionId, allUsers[i].UserName);
         }
     };
     
@@ -31,9 +27,8 @@
     
     $.connection.hub.start().done(function () {
         console.log("connection started!");
-        $('#sendmessage').click(function () {
-            chat.server.send($('#username').val(), $('#message').val());
-            $('#message').val('');
+        $('#button-sendmessage').click(function () {
+            chat.server.send($('#username').val(), $('#NewMessage').val());
         });
     });
 });

@@ -12,5 +12,7 @@ namespace ChatWithSignalRAndWinServMVC.Web.BusinessLogic.Services.Interfaces
         Task<IEnumerable<ChatItemView>> GetAvailableChats(string userId);
 
         Task<IEnumerable<ChatItemView>> AddChat(string userId, string chatName);
+
+        Task AddMessage(Guid chatId, string message, string userId);
     }
 }

@@ -21,6 +21,18 @@ namespace ChatWithSignalRAndWinServMVC.Web.BusinessLogic.Services
             return result;
         }
 
+        public async Task AddMessage(Guid chatId, string message, string userId)
+        {
+            await _database.Messages.Create(new DataAccess.Entities.Message()
+            {
+                Id = Guid.NewGuid(),
+                ChatId = chatId,
+                SendDate = DateTimeOffset.UtcNow,
+                SenderId = userId,
+                Text = message
+            });
+        }
+
         public async Task<IEnumerable<ChatItemView>> GetAvailableChats(string userId)
         {
             var result = await _database.Chats.GetAvailableChats(userId);

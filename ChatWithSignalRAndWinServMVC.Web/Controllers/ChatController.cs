@@ -32,8 +32,12 @@ namespace ChatWithSignalRAndWinServMVC.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddChat(ChatIndexPageView model)
+        public async Task<ActionResult> AddChat(CreateChatPartialPageView model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             var chats = await _chatService.AddChat(UserId, model.ChatName);
             return View("Index", new ChatIndexPageView()
             {
@@ -45,11 +49,22 @@ namespace ChatWithSignalRAndWinServMVC.Web.Controllers
         public async Task<ActionResult> ChatMessages(string chatId)
         {
             var chats = await _chatService.GetAvailableChats(UserId);
-            return View(new ChatIndexPageView()
+            return View(new ChatMessagesPageView()
             {
                 Chats = chats,
                 CurrentChat = chats.Where(chat => chat.Id == Guid.Parse(chatId)).FirstOrDefault()
             });
+        }
+        
+        [HttpPost]
+        public async Task<ActionResult> AddMessage(ChatMessagesPageView model, Guid currentChatId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("ChatMessages", model);
+            }
+            await _chatService.AddMessage(currentChatId, model.NewMessage, UserId);
+            return RedirectToAction("ChatMessages", new { ChatId = currentChatId });
         }
     }
 }

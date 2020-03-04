@@ -2,7 +2,7 @@
 @model ChatIndexPageView
 <div class="row">
     <div class="col-md-4">
-        @Html.Partial("_CreateChat", Model)
+        @Html.Partial("_CreateChat", new CreateChatPartialPageView())
         @Html.Partial("_AvailableChats", Model.Chats)
     </div>
 </div>
