@@ -9,7 +9,9 @@
         <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage" })
         </li>
-        <li><a href="javascript:sessionStorage.removeItem('accessToken');$('#logoutForm').submit();">Log off</a></li>
+        <li>
+            <input type="submit" value="Log out" class="link"/>
+        </li>
     </ul>
     }
 }
@@ -20,3 +22,6 @@ else
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
+    <script>
+        trackLogout();
+    </script>
