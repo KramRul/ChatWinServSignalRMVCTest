@@ -33,6 +33,13 @@ namespace ChatWithSignalRAndWinServMVC.Web
 
             bundles.Add(new ScriptBundle("~/bundles/gtag").Include(
                                "~/Scripts/Home/gtagEvents.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/threejs").Include(
+                               "~/Scripts/Render/three.js",
+                               "~/Scripts/Render/WebGL.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/render").Include(
+                   "~/Scripts/Render/userRenderScripts.js"));
         }
     }
 }

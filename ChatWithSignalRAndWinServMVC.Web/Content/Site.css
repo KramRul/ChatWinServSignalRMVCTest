@@ -28,3 +28,8 @@ textarea {
     background-color: transparent;
     border: none;
 }
+
+.render_scene {
+    min-height: 100%;
+    min-width: 100%
+}

@@ -31,6 +31,7 @@
     @Scripts.Render("~/bundles/jquerysignalr")
     @Scripts.Render("~/bundles/util")
     @Scripts.Render("~/bundles/gtag")
+    @Scripts.Render("~/bundles/threejs")
     @RenderSection("scripts", required: false)
     <script src="~/signalr/hubs"></script>
     <div class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -43,12 +44,13 @@
             <div class="collapse navbar-collapse" id="collapsed_navbar">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">@Html.ActionLink("Chat", "Index", "Chat", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Render", "Index", "Render", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" id="root_page">
         <input type="text" id="txtUserName" value="@User.Identity.GetUserName()" hidden />
         @RenderBody()
         <hr />

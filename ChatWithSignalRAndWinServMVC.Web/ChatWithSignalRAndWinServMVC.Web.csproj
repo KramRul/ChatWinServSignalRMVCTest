@@ -228,6 +228,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\RenderController.cs" />
     <Compile Include="DataAccess\ChatDBContext.cs" />
     <Compile Include="DataAccess\Entities\BaseEntity.cs" />
     <Compile Include="DataAccess\Entities\Chat.cs" />
@@ -314,6 +315,9 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\Render\three.js" />
+    <Content Include="Scripts\Render\userRenderScripts.js" />
+    <Content Include="Scripts\Render\WebGL.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
     <Content Include="Scripts\src\methods\destroy.js" />
@@ -410,6 +414,7 @@
     <Content Include="Views\Chat\ChatMessages.cshtml" />
     <Content Include="Views\Chat\_AvailableChats.cshtml" />
     <Content Include="Views\Chat\_CreateChat.cshtml" />
+    <Content Include="Views\Render\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
