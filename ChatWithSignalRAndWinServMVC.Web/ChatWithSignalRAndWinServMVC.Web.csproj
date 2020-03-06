@@ -228,6 +228,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\FontsController.cs" />
     <Compile Include="Controllers\RenderController.cs" />
     <Compile Include="DataAccess\ChatDBContext.cs" />
     <Compile Include="DataAccess\Entities\BaseEntity.cs" />
@@ -265,6 +266,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\models\skull\textures\defaultMat_baseColor.jpg" />
+    <Content Include="App_Data\models\skull\textures\defaultMat_normal.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -297,6 +300,9 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="App_Data\fonts\Authem_Script_Regular.json" />
+    <Content Include="App_Data\models\skull\scene.bin" />
+    <Content Include="App_Data\models\skull\scene.gltf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Home\util.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -315,6 +321,8 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\Render\GLTFLoader.js" />
+    <Content Include="Scripts\Render\OrbitControls.js" />
     <Content Include="Scripts\Render\three.js" />
     <Content Include="Scripts\Render\userRenderScripts.js" />
     <Content Include="Scripts\Render\WebGL.js" />
@@ -417,8 +425,9 @@
     <Content Include="Views\Render\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
+    <Folder Include="Views\Fonts\" />
+    <Folder Include="Views\Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

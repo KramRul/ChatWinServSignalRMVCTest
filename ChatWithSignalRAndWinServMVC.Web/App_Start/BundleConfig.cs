@@ -36,7 +36,9 @@ namespace ChatWithSignalRAndWinServMVC.Web
 
             bundles.Add(new ScriptBundle("~/bundles/threejs").Include(
                                "~/Scripts/Render/three.js",
-                               "~/Scripts/Render/WebGL.js"));
+                               "~/Scripts/Render/WebGL.js",
+                               "~/Scripts/Render/GLTFLoader.js",
+                               "~/Scripts/Render/OrbitControls.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/render").Include(
                    "~/Scripts/Render/userRenderScripts.js"));
